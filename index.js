@@ -48,8 +48,8 @@ app.post("/url/shorturlpage", async function (request, response) {
 
 app.get("/url/:shortcode", async function (request, response) {
    
-  const getdata = await client.db("b42wd2").collection("urls").findOne({shorturl: `http://localhost:4000/${request.params.shortcode}` })
-  const data = await client.db("b42wd2").collection("urls").updateOne({shorturl: `http://localhost:4000/${request.params.shortcode}` },{$set:{clickcount: getdata.clickcount +1 }} )
+  const getdata = await client.db("b42wd2").collection("urls").find({shorturl: `http://localhost:4000/${request.params.shortcode}` })
+  // const data = await client.db("b42wd2").collection("urls").updateOne({shorturl: `http://localhost:4000/${request.params.shortcode}` },{$set:{clickcount: getdata.clickcount +1 }} )
   response.redirect(getdata.urllink)  
 });
      
