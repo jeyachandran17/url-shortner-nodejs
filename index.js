@@ -8,9 +8,9 @@ import shortid from "shortid";
 
 const app = express();
 
-const PORT = 4000;
+const PORT = process.env.PORT;
 
-const MONGO_URL = "mongodb://127.0.0.1";
+const MONGO_URL = process.env;
 const client = new MongoClient(MONGO_URL); // dial
 // Top level await
 await client.connect(); // call
@@ -24,7 +24,7 @@ app.get('/', function (resquest, response) {
 })
 
 
-app.get("/url/shorturlpage", async function (request, response) {
+app.get("/url", async function (request, response) {
   const getdata = await client.db("b42wd2").collection("urls").find({}).toArray()
   response.send(getdata)
   console.log(getdata);
@@ -32,12 +32,12 @@ app.get("/url/shorturlpage", async function (request, response) {
 
 // post url storto db
 
-app.post("/url/shorturlpage", async function (request, response) {
-  const {urllink} =request.body;
+app.post("/url", async function (request, response) {
+  const {url} =request.body;
   const urldata = {
-    urllink:urllink,
+    url:url,
     shorturl:`http://localhost:4000/${shortid.generate()}`,
-    // clickcount: 0,
+    // clickcount: 0
   }
   const result = await client.db("b42wd2").collection('urls').insertOne(urldata);
   response.send(result);
