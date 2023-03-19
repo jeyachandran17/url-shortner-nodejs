@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = process.env.PORT;
 
-const MONGO_URL = process.env;
+const MONGO_URL = process.env.MONGO_URL;
 const client = new MongoClient(MONGO_URL); // dial
 // Top level await
 await client.connect(); // call
@@ -46,12 +46,12 @@ app.post("/url", async function (request, response) {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  short url 
 
-app.get("/url/:shortcode", async function (request, response) {
+// app.get("/url/:_id", async function (request, response) {
    
-  const getdata = await client.db("b42wd2").collection("urls").find({shorturl: `http://localhost:4000/${request.params.shortcode}` })
-  // const data = await client.db("b42wd2").collection("urls").updateOne({shorturl: `http://localhost:4000/${request.params.shortcode}` },{$set:{clickcount: getdata.clickcount +1 }} )
-  response.redirect(getdata.urllink)  
-});
+  // const getdata = await client.db("b42wd2").collection("urls").find({shorturl: `http://localhost:4000/${request.params._id}` })
+  // const data = await client.db("b42wd2").collection("urls").updateOne({shorturl: `http://localhost:4000/${request.params._id}` },{$set:{clickcount: getdata.clickcount +1 }} )
+  // response.redirect(getdata.url)  
+// });
      
     
   
